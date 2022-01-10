@@ -2,12 +2,17 @@
 # python3 -m pip install requests
 # python3 -m pip install json
 # python3 -m pip install lxml
+# python3 -m pip install pyperclip
+
+# to run: python3 scraper.py
+
+# https://docs.google.com/spreadsheets/d/1DkqbRUcr_Veklz0KHanqRWKaQCUXavDBuKfCtHHFWS0/edit#gid=1059361801
 
 from bs4 import BeautifulSoup
-import requests, json, lxml
+import requests, json, lxml, pyperclip
 
-site = 'datastax.com'
-query = 'data lineage'
+site = 'kyligence.io'
+query = 'data product'
 
 # # creating a list of all common heading tags
 # heading_tags = ["h1", "h2", "h3"]
@@ -114,12 +119,16 @@ for page in pages:
 
   title = soup.select_one('title')
 
-  for result in soup.select('title,h1,h2'):
+  for result in soup.select('title,h1,h2,h3,strong'):
     data.append('Page~'+pages[pos]+'~'+result.name+'~'+result.text.strip())    
 
   # break
   pos += 1
 
+## Clean up and print, copy to clipboard
+
+data = list(dict.fromkeys(data))
 
 print("\n".join(data))
+pyperclip.copy("\n".join(data))
 # print(json.dumps(pages, indent=2, ensure_ascii=False))
