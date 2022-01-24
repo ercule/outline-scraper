@@ -14,14 +14,6 @@ import requests, json, lxml, pyperclip, sys
 query = sys.argv[1]
 site = sys.argv[2]
 
-# site = 'atlan.com'
-# query = 'data warehouse'
-
-# # creating a list of all common heading tags
-# heading_tags = ["h1", "h2", "h3"]
-# for tags in soup.find_all(heading_tags):
-#     print(tags.name + ' -> ' + tags.text.strip())
-
 headers = {
     'User-agent':
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582'
