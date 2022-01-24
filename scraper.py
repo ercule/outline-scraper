@@ -4,7 +4,7 @@
 # python3 -m pip install lxml
 # python3 -m pip install pyperclip
 
-# to run: python3 scraper.py
+# to run: python3 scraper.py 'your query' 'somesite.com'
 
 # https://ercule.co/templates
 
