@@ -6,7 +6,7 @@
 
 # to run: python3 scraper.py
 
-# https://docs.google.com/spreadsheets/d/1DkqbRUcr_Veklz0KHanqRWKaQCUXavDBuKfCtHHFWS0/edit#gid=1059361801
+# https://ercule.co/templates
 
 from bs4 import BeautifulSoup
 import requests, json, lxml, pyperclip, sys
