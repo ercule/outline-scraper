@@ -9,10 +9,13 @@
 # https://docs.google.com/spreadsheets/d/1DkqbRUcr_Veklz0KHanqRWKaQCUXavDBuKfCtHHFWS0/edit#gid=1059361801
 
 from bs4 import BeautifulSoup
-import requests, json, lxml, pyperclip
+import requests, json, lxml, pyperclip, sys
 
-site = 'kyligence.io'
-query = 'data product'
+query = sys.argv[1]
+site = sys.argv[2]
+
+# site = 'atlan.com'
+# query = 'data warehouse'
 
 # # creating a list of all common heading tags
 # heading_tags = ["h1", "h2", "h3"]
