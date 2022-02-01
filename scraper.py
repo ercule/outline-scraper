@@ -109,16 +109,22 @@ for result in soup.select('.tF2Cxc'):
 pos = 0
 
 for page in pages:
-  html = requests.get(pages[pos], headers=headers)
-  soup = BeautifulSoup(html.text, 'lxml')
+  try:
+    if pages[pos].endswith('pdf'):
+      raise Exception("An exception occurred on "+pages[pos])
+      continue
+    html = requests.get(pages[pos], headers=headers)
+    soup = BeautifulSoup(html.text, 'lxml')
 
-  title = soup.select_one('title')
+    title = soup.select_one('title')
 
-  for result in soup.select('title,h1,h2,h3,strong'):
-    data.append('Page~'+pages[pos]+'~'+result.name+'~'+result.text.strip())    
+    for result in soup.select('title,h1,h2,h3,strong'):
+      data.append('Page~'+pages[pos]+'~'+result.name+'~'+result.text.strip())    
 
-  # break
-  pos += 1
+    # break
+    pos += 1
+  except:
+    print("An exception occurred on "+pages[pos])
 
 ## Clean up and print, copy to clipboard
 
