@@ -6,7 +6,7 @@
 
 # to run: python3 scraper.py 'your query' 'somesite.com'
 
-# https://ercule.co/templates
+# https://docs.google.com/spreadsheets/d/1QFTquIG2ek-TIPIl0a5xSGBiGNvVjnwpDbizJnaBQ-0/edit#gid=0
 
 from bs4 import BeautifulSoup
 import requests, json, lxml, pyperclip, sys, re
@@ -125,7 +125,7 @@ for result in soup.select('.tF2Cxc'):
   data.append('Post~'+str(pos)+'~Snippet~'+snippet)
 
   pages.append(link)
-  
+
 ## Clean up and print, copy to clipboard
 
 data = list(dict.fromkeys(data))
