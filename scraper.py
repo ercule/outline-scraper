@@ -9,7 +9,7 @@
 # https://ercule.co/templates
 
 from bs4 import BeautifulSoup
-import requests, json, lxml, pyperclip, sys
+import requests, json, lxml, pyperclip, sys, re
 
 query = sys.argv[1]
 site = sys.argv[2]
@@ -72,6 +72,28 @@ for result in soup.select('.s75CSd'):
 
   data.append('Related~'+str(pos)+'~Text~'+text)
 
+## Visit SERP linked pages and get data
+
+pos = -1
+
+for page in pages:
+  pos += 1
+  try:
+    if pages[pos].endswith('pdf'):
+      raise Exception("An exception occurred on "+pages[pos])
+      continue
+    html = requests.get(pages[pos], headers=headers)
+    soup = BeautifulSoup(html.text, 'lxml')
+
+    for result in soup.select('title,h1,h2,h3,strong'):
+      s = result.get_text()
+      s = re.sub(r'[^a-zA-Z0-9]', ' ', s)
+      s = ' '.join(s.split())
+      data.append('Page~'+pages[pos]+'~'+result.name+'~'+s)    
+
+  except:
+    print("An exception occurred on "+pages[pos])
+
 ## Get SERP for on-site pages
 
 pos = 0
@@ -103,29 +125,7 @@ for result in soup.select('.tF2Cxc'):
   data.append('Post~'+str(pos)+'~Snippet~'+snippet)
 
   pages.append(link)
-
-## Visit SERP linked pages and get data
-
-pos = 0
-
-for page in pages:
-  try:
-    if pages[pos].endswith('pdf'):
-      raise Exception("An exception occurred on "+pages[pos])
-      continue
-    html = requests.get(pages[pos], headers=headers)
-    soup = BeautifulSoup(html.text, 'lxml')
-
-    title = soup.select_one('title')
-
-    for result in soup.select('title,h1,h2,h3,strong'):
-      data.append('Page~'+pages[pos]+'~'+result.name+'~'+result.text.strip())    
-
-    # break
-    pos += 1
-  except:
-    print("An exception occurred on "+pages[pos])
-
+  
 ## Clean up and print, copy to clipboard
 
 data = list(dict.fromkeys(data))
